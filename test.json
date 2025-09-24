@@ -1,0 +1,19 @@
+{
+  "user": {
+    "name": "Sm9obiBEb2U=",
+    "email": "am9obi5kb2VAZXhhbXBsZS5jb20=",
+    "age": 30,
+    "active": true
+  },
+  "messages": [
+    "SGVsbG8gV29ybGQ=",
+    "VGhpcyBpcyBhIHRlc3QgbWVzc2FnZQ==",
+    42,
+    false
+  ],
+  "metadata": {
+    "description": "QSBzYW1wbGUgSlNPTiBmaWxl",
+    "version": "1.0.0",
+    "tags": ["dGVzdA==", "ZGVtbw==", "not-base64"]
+  }
+}
