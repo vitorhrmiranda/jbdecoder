@@ -12,12 +12,27 @@ A command-line utility written in Go that recursively decodes Base64 encoded str
 
 ## Installation
 
+### Quick Install (Recommended)
+
+Install directly using the installation script:
+
+```bash
+curl -s -L https://raw.githubusercontent.com/vitorhrmiranda/jbdecoder/main/scripts/install.sh | bash
+```
+
+### From Go Install
+
+```bash
+go install github.com/vitorhrmiranda/jbdecoder/cmd/cli@latest
+# Note: This will install the binary as 'cli', not 'jbdecoder'
+```
+
 ### From Source
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd decode_grpc_response
+git clone https://github.com/vitorhrmiranda/jbdecoder.git
+cd jbdecoder
 
 # Build the binary
 go build -o jbdecoder cmd/cli/main.go
