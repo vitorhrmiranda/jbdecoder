@@ -10,10 +10,16 @@ import (
 const (
 	base64BlockSize = 4
 	validBase64Mod  = 0
+	minBase64Length = 16
 )
 
 // IsBase64 checks if a string is valid Base64 encoded
 func IsBase64(s string) bool {
+	// Base64 strings should be reasonably long to avoid false positives
+	if len(s) < minBase64Length {
+		return false
+	}
+
 	// base64 strings should have a length that's a multiple of base64blocksize
 	if len(s)%base64BlockSize != validBase64Mod {
 		return false
@@ -61,6 +67,21 @@ func DecodeBase64String(s string) any {
 	return decodedStr
 }
 
+// DecodeBase64Fields recursively traverses JSON data and decodes Base64 strings
+func DecodeBase64Fields(data any) any {
+	switch v := data.(type) {
+	case map[string]any:
+		return DecodeBase64InMap(v)
+	case []any:
+		return DecodeBase64InSlice(v)
+	case string:
+		return DecodeBase64String(v)
+	default:
+		// For other types (numbers, booleans, null), return as-is
+		return v
+	}
+}
+
 // DecodeBase64InMap processes all values in a map
 func DecodeBase64InMap(m map[string]any) map[string]any {
 	result := make(map[string]any)
@@ -77,19 +98,4 @@ func DecodeBase64InSlice(s []any) []any {
 		result[i] = DecodeBase64Fields(value)
 	}
 	return result
-}
-
-// DecodeBase64Fields recursively traverses JSON data and decodes Base64 strings
-func DecodeBase64Fields(data any) any {
-	switch v := data.(type) {
-	case map[string]any:
-		return DecodeBase64InMap(v)
-	case []any:
-		return DecodeBase64InSlice(v)
-	case string:
-		return DecodeBase64String(v)
-	default:
-		// For other types (numbers, booleans, null), return as-is
-		return v
-	}
 }
