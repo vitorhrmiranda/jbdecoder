@@ -12,16 +12,18 @@ A command-line utility written in Go that recursively decodes Base64 encoded str
 
 ## Installation
 
+### From Source
+
 ```bash
 # Clone the repository
 git clone <repository-url>
 cd decode_grpc_response
 
 # Build the binary
-go build -o jbdecoder main.go
+go build -o jbdecoder cmd/cli/main.go
 
 # Or run directly
-go run main.go [arguments]
+go run cmd/cli/main.go [arguments]
 ```
 
 ## Usage
@@ -39,37 +41,37 @@ jbdecoder [OPTIONS] [INPUT]
 
 #### 1. Direct JSON String
 ```bash
-go run main.go '{"message": "SGVsbG8gV29ybGQ=", "number": 42}'
+go run cmd/cli/main.go '{"message": "SGVsbG8gV29ybGQ=", "number": 42}'
 # Output: {"message":"Hello World","number":42}
 ```
 
 #### 2. File Input
 ```bash
-go run main.go data.json
+go run cmd/cli/main.go data.json
 ```
 
 #### 3. Stdin (Pipe)
 ```bash
-echo '{"data": "SGVsbG8="}' | go run main.go
+echo '{"data": "SGVsbG8="}' | go run cmd/cli/main.go
 # Output: {"data":"Hello"}
 ```
 
 #### 4. File Redirection
 ```bash
-go run main.go < input.json
+go run cmd/cli/main.go < input.json
 ```
 
 ### Examples
 
 #### Simple Base64 Decoding
 ```bash
-$ go run main.go '{"name": "Sm9obg==", "age": 30}'
+$ go run cmd/cli/main.go '{"name": "Sm9obg==", "age": 30}'
 {"name":"John","age":30}
 ```
 
 #### Complex Nested JSON
 ```bash
-$ go run main.go '{
+$ go run cmd/cli/main.go '{
   "user": {
     "name": "Sm9obiBEb2U=",
     "email": "am9obi5kb2VAZXhhbXBsZS5jb20="
@@ -95,7 +97,7 @@ Output:
 
 #### Mixed Data Types
 ```bash
-$ go run main.go '{
+$ go run cmd/cli/main.go '{
   "valid_base64": "SGVsbG8gV29ybGQ=",
   "not_base64": "Hello@World",
   "number": 123,
@@ -155,22 +157,3 @@ This runs comprehensive tests including:
 - Error handling scenarios
 - Complex nested structures
 - Base64 edge cases
-
-## Development
-
-### Code Quality
-
-The project uses `golangci-lint` for code quality:
-
-```bash
-golangci-lint run
-```
-
-### Project Structure
-
-```
-├── main.go           # Main application code
-├── main_test.go      # Comprehensive test suite
-├── go.mod           # Go module definition
-└── README.md        # This documentation
-```

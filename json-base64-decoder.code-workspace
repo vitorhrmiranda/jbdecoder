@@ -22,17 +22,19 @@
 			"--fast"
 		],
 		"go.formatTool": "gofumpt",
-		"go.testTimeout": "1800s",
+		"go.testTimeout": "5s",
 		"go.toolsManagement.autoUpdate": true,
 		"go.useLanguageServer": true,
 		"go.lintOnSave": "package",
-		"go.buildTags": "duckdb",
 		"gopls": {
 			"ui.semanticTokens": true,
 			"formatting.gofumpt": true,
 		},
 		"chat.promptFilesLocations": {
 			".github/prompts": true
+		},
+		"chat.instructionsFilesLocations": {
+			".github/instructions": true
 		},
 		"[go]": {
 			"editor.formatOnSave": true,
@@ -62,14 +64,4 @@
 			]
 		}
 	},
-	"tasks": {
-		"version": "2.0.0",
-		"tasks": [
-			{
-				"label": "up",
-				"type": "shell",
-				"command": "docker compose up -d postgres awslocal"
-			}
-		]
-	}
 }

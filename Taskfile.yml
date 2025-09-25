@@ -1,0 +1,30 @@
+version: '3'
+
+vars:
+  EXTENSION_DIR: ./chrome-extension
+  WASM_DIR: ./cmd/wasm
+
+env:
+  GOOS: js
+  GOARCH: wasm
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmd: task --list
+
+  build-wasm:
+    desc: Compile Go code to WebAssembly
+    sources:
+      - "{{.WASM_DIR}}/main.go"
+      - "go.mod"
+      - "go.sum"
+    generates:
+      - "{{.EXTENSION_DIR}}/wasm/jbdecoder.wasm"
+    cmds:
+      - echo "🔨 Building WebAssembly module..."
+      - mkdir -p {{.EXTENSION_DIR}}/wasm
+      - |
+        go build -o {{.EXTENSION_DIR}}/wasm/jbdecoder.wasm {{.WASM_DIR}}/main.go
+      - |
+        echo "📦 WASM size: $(du -h {{.EXTENSION_DIR}}/wasm/jbdecoder.wasm | cut -f1)"
